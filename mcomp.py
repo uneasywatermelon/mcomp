@@ -1,3 +1,13 @@
+'''
+MASTER TODO:
+    add array support and math initializations (can be basically translated directly to c), also fix for loops maybe: with something cool like an arrow from start to end.
+
+
+'''
+
+
+
+
 from sys import argv
 
 
