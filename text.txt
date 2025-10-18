@@ -1,8 +1,6 @@
-x = 5
-y = 10
-j = "John"
+x = 15
+y = 4
 
-
-for (y-x)
-    print j
+for (x * y)
+    print "Hello"
 end
