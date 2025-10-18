@@ -1,3 +1,5 @@
+Here is my Python project that translates a my simple language with simple syntax to C for further compilation into an executable
+
 Basic Functionalities:
 
 VARIABLES:
