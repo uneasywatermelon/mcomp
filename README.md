@@ -2,7 +2,8 @@ Basic Functionalities:
 Variable declaration:
 supports type inference, but dont change the type of a variable in your script.
 
-x = 14 
+x = 15
+
 s = "Yes"
 
 Print statement:
