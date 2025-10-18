@@ -27,10 +27,11 @@ except:
 vars = dict() #var name points to var type as is in the program - types will not change (as of now)
 
 
-def parse_line_with_forgiveness_for_quotes(line: str) -> list:
+def parse_line_with_forgiveness_for_quotes_and_parenthesis(line: str) -> list:
     final = []
     curr = ""
     quote_mode: bool = False
+    paren_mode: bool = False
     for char in line:
         if quote_mode:
             if char != '"':
@@ -39,12 +40,22 @@ def parse_line_with_forgiveness_for_quotes(line: str) -> list:
                 curr += '"'
                 quote_mode = False
                 continue
+        elif paren_mode:
+            if char != ')':
+                curr += char
+            else:
+                curr += ')'
+                paren_mode = False
+                continue
         elif char == " " and curr:
             final.append(curr)
             curr = ""
         elif char == '"':
             curr += '"'
             quote_mode = True
+        elif char == "(":
+            curr += "("
+            paren_mode = True
         else:
             curr += char
 
@@ -62,7 +73,6 @@ class _Num:
         self.value = value
         self._type = None
     def interpret_num(self):
-        self.value = int(self.value)
         self._type = "int"
 class _Str:
     def __init__(self, name: str, value: str):
@@ -87,7 +97,7 @@ def parse_print(line: list) -> _Print:
 
 def parse_var(line: list) -> _Num | _Str:
     global vars
-    if line[2].isdigit():
+    if (line[2][0] == "(" and line[2][-1] == ")") or line[2].isdigit():
         final = _Num(line[0], line[2])
         final.interpret_num()
         vars[final.name] = _Num
@@ -97,6 +107,7 @@ def parse_var(line: list) -> _Num | _Str:
         vars[final.name] = _Str
         return final
     else:
+        print(line)
         print("SYNTAX ERROR")
         exit(69)
 
@@ -175,7 +186,7 @@ _queue = []
 L = IN_FILE.split('\n')
 for x in range(len(L)):
     L[x] = L[x].strip()
-    L[x] = parse_line_with_forgiveness_for_quotes(L[x])
+    L[x] = parse_line_with_forgiveness_for_quotes_and_parenthesis(L[x])
 OUT_TEXT = ""
 #TODO: add variable libary additions
 OUT_TEXT += "#include <stdio.h>\nint main() {"
@@ -191,6 +202,8 @@ for line in L:
                 _queue.append("end")
             case "for":
                 _queue.append(parse_for(line))
+            case "#":
+                continue
             case _:
                 _queue.append(parse_var(line))
 
