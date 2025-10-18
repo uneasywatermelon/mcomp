@@ -1,6 +1,7 @@
 x = 15
 y = 4
+greeting = "Hello"
 
 for (x * y)
-    print "Hello"
+    print greeting
 end
