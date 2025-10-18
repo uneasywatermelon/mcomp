@@ -2,8 +2,7 @@ Basic Functionalities:
 Variable declaration:
 supports type inference, but dont change the type of a variable in your script.
 
-x = 14
-s = "Yes"
+x = 14 \m s = "Yes"
 
 Print statement:
 takes arguments separated by spaces. automatically adds a newline. (just feeds arguments into a printf.
