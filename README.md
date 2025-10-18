@@ -1,6 +1,6 @@
 Basic Functionalities:
 
-Variable declaration:
+VARIABLES:
 
 supports type inference, but dont change the type of a variable in your script.
 
@@ -8,7 +8,9 @@ supports type inference, but dont change the type of a variable in your script.
 
 # s = "Yes"
 
-Print statement:
+
+
+PRINTING:
 
 takes arguments separated by spaces. automatically adds a newline. (just feeds arguments into a printf.
 
@@ -52,9 +54,11 @@ outputs:
 
 Hello World
 
-For loops:
 
-can provide any numerical argument, and for loop will run that many times. Only works on nonnegative integers.
+
+FOR LOOPS:
+
+can provide any numerical argument, and the loop will run that many times. only works on nonnegative integers.
 
 ex:
 
@@ -93,7 +97,7 @@ if you want math to be involved to decide the number of times it should iterate,
 
 this loop prints "Hello" 60 times. (15 X 4).
 
-the reason this works is because the parenthesized argument is just directly deposited into a for loop. So any math operations that you use in the for's argument must be valid operations in C.
+the reason this works is because the parenthesized argument is just directly deposited into a for loop in C. So any math operations that you use in the for's argument must be valid operations in C.
 
 Comments can be written with "#" symbol at the start of the line, then the program will ignore that line.
 
