@@ -166,7 +166,7 @@ def _For_string(forobject: _For) -> str:
     if forobject.iterations == None:
         return "while (1) {"
     else:
-        return f"for (int __iter = 0; __iter < {forobject.iterations}; __iter++) {{"
+        return f"for (int __i = 0; __i < {forobject.iterations}; __i++) {{"
 
 def object_to_string(obj) -> str:
     if isinstance(obj, _For):
