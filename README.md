@@ -13,9 +13,9 @@ Supports **type inference** — just declare a variable and assign a value. **Do
 
 **Examples:**
 
-```simple
-# x = 15
-# s = "Yes"
+```simplescript
+x = 15
+s = "Yes"
 ```
 
 These become C variables with inferred types:
@@ -40,9 +40,9 @@ The compiler:
 
 **Examples:**
 
-```simple
-# x = 14
-# print x
+```simplescript
+x = 14
+print x
 ```
 
 C output:
@@ -53,11 +53,11 @@ printf("%d\n", x);
 
 More examples:
 
-```simple
-# print "Hello" "world"
-# print "hello world"
-# x = 14
-# print "hello" x
+```simplescript
+print "Hello" "world"
+print "hello world"
+x = 14
+print "hello" x
 ```
 
 C output:
@@ -68,9 +68,9 @@ printf("hello world\n");
 printf("hello %d\n", x);
 ```
 
-```simple
-# s = "Hello World"
-# print s
+```simplescript
+s = "Hello World"
+print s
 ```
 
 C output:
@@ -87,18 +87,18 @@ Loops using a number, variable, or a parenthesized C-style expression.
 
 **Syntax:**
 
-```simple
-# for {expression}
-#   print ...
-# end
+```simplescript
+for {expression}
+  print ...
+end
 ```
 
 #### 🔹 Static Number:
 
-```simple
-# for 50
-#   print "Hello"
-# end
+```simplescript
+for 50
+  print "Hello"
+end
 ```
 
 C output:
@@ -111,11 +111,11 @@ for (int __i = 0; __i < 50; __i++) {
 
 #### 🔹 Variable Count:
 
-```simple
-# x = 15
-# for x
-#   print "Hello"
-# end
+```simplescript
+x = 15
+for x
+  print "Hello"
+end
 ```
 
 C output:
@@ -129,12 +129,12 @@ for (int __i = 0; __i < x; __i++) {
 
 #### 🔹 Expressions (wrapped in parentheses):
 
-```simple
-# x = 15
-# y = 4
-# for (x * y)
-#   print "Hello"
-# end
+```simplescript
+x = 15
+y = 4
+for (x * y)
+  print "Hello"
+end
 ```
 
 C output:
@@ -153,7 +153,13 @@ for (int __i = 0; __i < (x * y); __i++) {
 
 ### ✅ Comments
 
-Any line starting with `#` is treated as a **comment** or **SimpleScript instruction**. The compiler ignores comment-only lines.
+Any line starting with `#` is treated as a **comment** and ignored by the compiler.
+
+```simplescript
+# This is a comment
+x = 5
+# print "This won't show"
+```
 
 ---
 
@@ -165,12 +171,12 @@ Create a file, e.g., `myscript.txt`, with your SimpleScript code.
 
 Example:
 
-```simple
-# x = 10
-# print "Repeating" x "times"
-# for x
-#   print "Hello"
-# end
+```simplescript
+x = 10
+print "Repeating" x "times"
+for x
+  print "Hello"
+end
 ```
 
 ---
@@ -216,13 +222,13 @@ Run your program:
 
 ## 📁 Example Script
 
-```simple
-# x = 3
-# s = "Hi!"
-# print "Message:"
-# for x
-#   print s
-# end
+```simplescript
+x = 3
+s = "Hi!"
+print "Message:"
+for x
+  print s
+end
 ```
 
 Compiles to:
