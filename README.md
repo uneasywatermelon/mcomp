@@ -1,117 +1,249 @@
-Here is a Python project that translates a simple syntax to C for further compilation into an executable
+```markdown
+# SimpleScript to C Translator
 
-Basic Functionalities:
+This is a Python-based compiler (`mcomp.py`) that translates a small, simple scripting language (called "SimpleScript") into C code, ready for compilation into an executable.
 
-VARIABLES:
+---
 
-supports type inference, but dont change the type of a variable in your script.
+## ✨ Basic Features
 
+### ✅ Variables
+
+Supports **type inference** — just declare a variable and assign a value. **Do not change the variable's type** after declaration.
+
+**Examples:**
+
+```simple
 # x = 15
-
 # s = "Yes"
+```
 
+These become C variables with inferred types:
 
+```c
+int x = 15;
+char* s = "Yes";
+```
 
-PRINTING:
+---
 
-takes arguments separated by spaces. automatically adds a newline. (just feeds arguments into a printf.
+### ✅ Printing
 
-variable support: supports variables by looking into dictionary of declared variables, where a variable name is associated with a variable type.
+Supports printing **strings and variables**, space-separated. Automatically adds a newline.
 
-(this works because variable types will not change throughout the program).
+This is compiled to a `printf(...)` statement in C.
 
-program then puts the associated printf symbol (int = %d, string = %s) in order of which you provided the arguments, then afterwords cites variable name.
+The compiler:
+- Looks up variable types.
+- Inserts appropriate format specifiers (`%d` for int, `%s` for string, etc.).
+- Appends variables in order.
 
-example:
+**Examples:**
 
+```simple
 # x = 14
-
 # print x
+```
 
-this puts printf("%d \n", x);
+C output:
 
-more examples:
+```c
+printf("%d\n", x);
+```
 
+More examples:
+
+```simple
 # print "Hello" "world"
-
 # print "hello world"
-
 # x = 14
-
 # print "hello" x
+```
 
-outputs:
+C output:
 
-Hello world
+```c
+printf("Hello world\n");
+printf("hello world\n");
+printf("hello %d\n", x);
+```
 
-hello world
-
-hello 14
-
+```simple
 # s = "Hello World"
-
 # print s
+```
 
-outputs:
+C output:
 
-Hello World
+```c
+printf("%s\n", s);
+```
 
+---
 
+### ✅ For Loops
 
-FOR LOOPS:
+Loops using a number, variable, or a parenthesized C-style expression.
 
-can provide any numerical argument, and the loop will run that many times. only works on nonnegative integers.
+**Syntax:**
 
-ex:
+```simple
+# for {expression}
+#   print ...
+# end
+```
 
+#### 🔹 Static Number:
+
+```simple
 # for 50
-
 #   print "Hello"
-
 # end
+```
 
-prints "Hello" 50 times, newline after every print.
+C output:
 
+```c
+for (int __i = 0; __i < 50; __i++) {
+    printf("Hello\n");
+}
+```
+
+#### 🔹 Variable Count:
+
+```simple
 # x = 15
-
-# y = 7
-
-you can add integer variables as the argument.
-
 # for x
-
-#   print y
-
-# end
-
-
-if you want math to be involved to decide the number of times it should iterate, use parenthesis like as follows:
-
-# x = 15
-
-# y = 4
-
-# for (x * y)
-
 #   print "Hello"
-
 # end
+```
 
-this loop prints "Hello" 60 times. (15 X 4).
+C output:
 
-the reason this works is because the parenthesized argument is just directly deposited into a for loop in C. So any math operations that you use in the for's argument must be valid operations in C.
+```c
+int x = 15;
+for (int __i = 0; __i < x; __i++) {
+    printf("Hello\n");
+}
+```
 
-Comments can be written with "#" symbol at the start of the line, then the program will ignore that line.
+#### 🔹 Expressions (wrapped in parentheses):
 
+```simple
+# x = 15
+# y = 4
+# for (x * y)
+#   print "Hello"
+# end
+```
 
-HOW TO RUN PROGRAM:
+C output:
 
-make text file containing simple code in this made up language.
+```c
+int x = 15;
+int y = 4;
+for (int __i = 0; __i < (x * y); __i++) {
+    printf("Hello\n");
+}
+```
 
-run "python3 mcomp.py {your_script_name}".
+> **Note:** Expression inside `for` is inserted *directly into C*. It must be valid C math.
 
-a new "__out.c" file should be automatically generated in the directory you ran the program in.
+---
 
-compile "__out.c" with gcc or your favorite C compiler.
+### ✅ Comments
 
-run and enjoy your new executable.
+Any line starting with `#` is treated as a **comment** or **SimpleScript instruction**. The compiler ignores comment-only lines.
+
+---
+
+## 🛠 How to Use
+
+### Step 1: Write your script
+
+Create a file, e.g., `myscript.txt`, with your SimpleScript code.
+
+Example:
+
+```simple
+# x = 10
+# print "Repeating" x "times"
+# for x
+#   print "Hello"
+# end
+```
+
+---
+
+### Step 2: Compile with `mcomp.py`
+
+Run the translator:
+
+```bash
+python3 mcomp.py myscript.txt
+```
+
+This generates a C file: `__out.c`
+
+---
+
+### Step 3: Compile the C Code
+
+Use your preferred compiler (like `gcc`) to compile:
+
+```bash
+gcc __out.c -o myprogram
+```
+
+Run your program:
+
+```bash
+./myprogram
+```
+
+---
+
+## 🧠 Notes
+
+- You cannot change a variable’s type once declared.
+- All variables must be declared before use in loops or print statements.
+- Complex math inside `for` loops must be **valid C** syntax.
+- String literals should be in quotes.
+- The `print` command automatically appends a newline.
+- No `if` statements or functions — this is a minimal translator.
+
+---
+
+## 📁 Example Script
+
+```simple
+# x = 3
+# s = "Hi!"
+# print "Message:"
+# for x
+#   print s
+# end
+```
+
+Compiles to:
+
+```c
+int x = 3;
+char* s = "Hi!";
+printf("Message:\n");
+for (int __i = 0; __i < x; __i++) {
+    printf("%s\n", s);
+}
+```
+
+---
+
+## ✅ Summary
+
+- 🚀 Simple syntax
+- 🌀 Translates directly to C
+- 🧱 Supports variables, printing, and for-loops
+- 🔧 Easy to compile and run
+
+Enjoy writing and compiling your own mini-scripts into C executables!
+```
